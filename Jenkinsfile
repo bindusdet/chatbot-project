@@ -79,7 +79,6 @@ pipeline{
                 }
             }
         }
-}
         stage('Verify the deployment') {
             steps {
                 withKubeConfig(
@@ -94,6 +93,8 @@ pipeline{
                     sh "kubectl get pods -n ${NAMESPACE}"
                     sh "kubectl get svc -n ${NAMESPACE}"
                 }
+         
             }
+        }
     }
 }
