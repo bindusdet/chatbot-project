@@ -3,6 +3,9 @@ pipeline{
     
     environment{
         IMAGE_NAME = "bindu65/chatbot-bindu:${GIT_COMMIT}"
+        AWS_REGION   = "us-east-1"
+        CLUSTER_NAME = "bindu-cluster"
+        NAMESPACE    = "bindu"
         
     }
 
@@ -49,5 +52,48 @@ pipeline{
                 ''' 
             }
         }  
+
+        stage('Cluster-Update') {
+            steps {
+                sh '''
+                    aws eks update-kubeconfig \
+                      --region ${AWS_REGION} \
+                      --name ${CLUSTER_NAME}
+                '''
+            }
+        }
+
+        stage('Deploying to EKS clsuter') {
+            steps {
+                withKubeConfig(
+                    caCertificate: '',
+                    clusterName: 'bindu-cluster',
+                    contextName: '',
+                    credentialsId: 'kube',
+                    namespace: 'bindu',
+                    restrictKubeConfigAccess: false,
+                    serverUrl: 'https://60E78979056985109A5B28A630624F42.gr7.us-east-1.eks.amazonaws.com'
+                ) {
+                    sh "sed -i 's|replace|${IMAGE_NAME}|g' Deployment.yaml"
+                    sh "kubectl apply -f Deployment.yaml -n ${NAMESPACE}"
+                }
+            }
+        }
+}
+        stage('Verify the deployment') {
+            steps {
+                withKubeConfig(
+                    caCertificate: '',
+                    clusterName: 'itkannabindudigaru-cluster',
+                    contextName: '',
+                    credentialsId: 'kube',
+                    namespace: 'bindu',
+                    restrictKubeConfigAccess: false,
+                    serverUrl: 'https://60E78979056985109A5B28A630624F42.gr7.us-east-1.eks.amazonaws.com'
+                ) {
+                    sh "kubectl get pods -n ${NAMESPACE}"
+                    sh "kubectl get svc -n ${NAMESPACE}"
+                }
+            }
     }
 }
