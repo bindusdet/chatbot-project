@@ -22,7 +22,7 @@ pipeline{
         stage('Testing-stage'){
             steps{
                 sh '''
-                    docker run -it -d --name chatbot-container -p 9001:8501 ${IMAGE_NAME}
+                    docker run -it -d --name chatbot-container-b -p 9001:8501 ${IMAGE_NAME}
                 ''' 
             }
         } 
