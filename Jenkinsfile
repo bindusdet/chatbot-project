@@ -2,7 +2,7 @@ pipeline{
     agent any
     
     environment{
-        IMAGE_NAME = "chatbot-bindu:${GIT_COMMIT}"
+        IMAGE_NAME = "chatbot-bindu8:${GIT_COMMIT}"
     }
 
     stages{
