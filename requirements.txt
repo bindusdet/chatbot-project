@@ -1,6 +1,0 @@
-#this is like a libraries 
-streamlit
-langchain
-langchain_openai
-langchain_core
-dotenv
