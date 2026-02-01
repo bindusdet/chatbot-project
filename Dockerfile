@@ -9,8 +9,9 @@ libgl1 \
 libglib2.0-0 && \
 rm -rf /var/lib/apt/lists/*   
 
-RUN pip install --upgrade pip install -r requirements.txt
+RUN pip install --upgrade 
 COPY . /app/
+RUN pip install -r requirements.txt
 
 EXPOSE 8501
 
