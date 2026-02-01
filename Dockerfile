@@ -9,7 +9,7 @@ libgl1 \
 libglib2.0-0 && \
 rm -rf /var/lib/apt/lists/*   
 
-RUN pip install --upgrade 
+RUN pip install --upgrade pip
 COPY . /app/
 RUN pip install -r requirements.txt
 
