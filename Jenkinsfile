@@ -3,6 +3,7 @@ pipeline{
     
     environment{
         IMAGE_NAME = "chatbot-bindu8:${GIT_COMMIT}"
+        
     }
 
     stages{
@@ -22,7 +23,7 @@ pipeline{
         stage('Testing-stage'){
             steps{
                 sh '''
-                    docker run -it -d --name chatbot-container-b -p 9002:8501 ${IMAGE_NAME}
+                    docker run -it -d --name chatbot-container-08 -p 9002:8501 ${IMAGE_NAME}
                 ''' 
             }
         } 
