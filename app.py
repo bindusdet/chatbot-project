@@ -47,7 +47,8 @@ model = st.sidebar.selectbox(
     [
         "gpt-4o-mini",   # Recommended
         "gpt-4o",
-        "gpt-4-turbo"
+        "gpt-4-turbo",
+        "gtp-5-mini"
     ]
 )
 
